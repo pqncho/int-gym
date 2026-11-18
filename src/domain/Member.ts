@@ -21,7 +21,6 @@ export class Member {
   private _monthlyFee: number = 0;
   private _discount: number = 0;
 
-
   constructor(data: MemberData) {
     this.name = data.name;
     this.documentId = data.documentId;
@@ -81,18 +80,17 @@ export class Member {
   }
 
   set discount(_value: number) {
-    if ( _value < 0 ||  _value> 100) {
+    if (_value < 0 || _value > 100) {
       throw new Error("el descuento debe ser entre 0 y 100.");
     }
-   this._discount = _value;
+    this._discount = _value;
   }
 
   toString(): string {
-
-    if(this.discount==0)  {return `${this.name} (doc. ${this.documentId}) - Plan ${PLAN_LABELS[this.plan]} - $${this.monthlyFee}`;}
-    else {
-    
-    return `${this.name} (doc. ${this.documentId}) - Plan ${PLAN_LABELS[this.plan]} - $${this.monthlyFee} - Discount: ${this.discount}%`;
+    if (this.discount == 0) {
+      return `${this.name} (doc. ${this.documentId}) - Plan ${PLAN_LABELS[this.plan]} - $${this.monthlyFee}`;
+    } else {
+      return `${this.name} (doc. ${this.documentId}) - Plan ${PLAN_LABELS[this.plan]} - $${this.monthlyFee} - Discount: ${this.discount}%`;
     }
   }
 }

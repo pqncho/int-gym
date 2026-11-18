@@ -51,25 +51,22 @@ describe("Member", () => {
     expect(() => (member.monthlyFee = Number.NaN)).toThrow();
   });
 
-
-
   test("to string cuando discount==0", () => {
-   
     expect(member.toString()).toBe(
       "Ana Pérez (doc. 12345678) - Plan Completo - $1500",
     );
   });
 
   test("to string cuando discount>0", () => {
-    member.discount=40;
+    member.discount = 40;
     expect(member.toString()).toBe(
       "Ana Pérez (doc. 12345678) - Plan Completo - $1500 - Discount: 40%",
     );
   });
 
-  test("set de discount en 101", ()=> {
-    expect(()=> (member.discount =101)).toThrow("el descuento debe ser entre 0 y 100.")
-   
-  })
-
+  test("set de discount en 101", () => {
+    expect(() => (member.discount = 101)).toThrow(
+      "el descuento debe ser entre 0 y 100.",
+    );
+  });
 });

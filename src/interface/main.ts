@@ -4,7 +4,9 @@ import { MemberList } from "../domain/MemberList.ts";
 import mockMembers from "../data/members.json";
 
 const memberList = new MemberList();
-const inpDiscount = document.getElementById("inp-descuento") as HTMLInputElement | null;
+const inpDiscount = document.getElementById(
+  "inp-descuento",
+) as HTMLInputElement | null;
 const inpName = document.getElementById("inp-name") as HTMLInputElement | null;
 const inpDocument = document.getElementById(
   "inp-document",
@@ -78,8 +80,7 @@ function createFeeEditor(member: Member): HTMLDivElement {
   button.className = "btn btn-outline-secondary";
   button.textContent = "Guardar cuota";
   button.addEventListener("click", () => {
-    
-  const newFee = Number(input.value);
+    const newFee = Number(input.value);
 
     if (input.value.trim() === "" || !Number.isFinite(newFee) || newFee <= 0) {
       input.classList.add("is-invalid");
@@ -89,7 +90,6 @@ function createFeeEditor(member: Member): HTMLDivElement {
     input.classList.remove("is-invalid");
 
     member.monthlyFee = newFee;
-
   });
   group.append(input, button);
   return group;
@@ -97,7 +97,7 @@ function createFeeEditor(member: Member): HTMLDivElement {
 
 function createCard(member: Member): HTMLDivElement {
   const span = document.createElement("span");
-  span.className= "badge text-bg-secondary"
+  span.className = "badge text-bg-secondary";
   span.textContent = PLAN_LABELS[member.plan];
   const column = document.createElement("div");
   column.className = "col";
@@ -115,7 +115,7 @@ function createCard(member: Member): HTMLDivElement {
   if (member.discount > 0) {
     lines.push(`Descuento: ${member.discount}%`);
   }
-  body.append(span,title, ...lines.map(createText));
+  body.append(span, title, ...lines.map(createText));
   const footer = document.createElement("div");
   footer.className = "card-footer bg-transparent";
   footer.append(createFeeEditor(member));
@@ -161,7 +161,7 @@ if (btnAdd && inpName && inpDocument && selPlan && inpFee && inpDiscount) {
         documentId: inpDocument.value,
         plan: selPlan.value as Plan,
         monthlyFee: Number(inpFee.value),
-        discount: Number(inpDiscount.value)
+        discount: Number(inpDiscount.value),
       });
       memberList.add(member);
       hideError();

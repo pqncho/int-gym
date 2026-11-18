@@ -36,22 +36,19 @@ describe("MemberList", () => {
     expect(list.totalFees()).toBe(1500);
   });
 
- test("total discount", () => {
+  test("total discount", () => {
     list.add(member);
     expect(list.totalDiscounted()).toBe(900);
   });
 
-
-   test("update fee of a non exist member", () => {
+  test("update fee of a non exist member", () => {
     list.add(member);
-    expect(() => (list.updateFee('45',45))).toThrow("el elemento no existe");
+    expect(() => list.updateFee("45", 45)).toThrow("el elemento no existe");
   });
 
   test("update fee", () => {
     list.add(member);
-    list.updateFee("12345678",45);
+    list.updateFee("12345678", 45);
     expect(member.monthlyFee == 45).toBe(true);
   });
-
-
 });
