@@ -4,7 +4,7 @@ import { MemberList } from "../domain/MemberList.ts";
 import mockMembers from "../data/members.json";
 
 const memberList = new MemberList();
-
+const inpDiscount = document.getElementById("inp-descuento") as HTMLInputElement | null;
 const inpName = document.getElementById("inp-name") as HTMLInputElement | null;
 const inpDocument = document.getElementById(
   "inp-document",
@@ -34,11 +34,16 @@ const inpTotalFees = document.getElementById(
   "inp-total-fees",
 ) as HTMLInputElement | null;
 
+const inpTotalDiscount = document.getElementById(
+  "inp-total-descuento",
+) as HTMLInputElement | null;
+
 function clearInputs(): void {
-  if (inpName && inpDocument && inpFee) {
+  if (inpName && inpDocument && inpFee && inpDiscount) {
     inpName.value = "";
     inpDocument.value = "";
     inpFee.value = "";
+    inpDiscount.value = "";
   }
 }
 
@@ -73,13 +78,27 @@ function createFeeEditor(member: Member): HTMLDivElement {
   button.className = "btn btn-outline-secondary";
   button.textContent = "Guardar cuota";
   button.addEventListener("click", () => {
-    // TODO: editar la cuota del socio con el valor de input
+    
+  const newFee = Number(input.value);
+
+    if (input.value.trim() === "" || !Number.isFinite(newFee) || newFee <= 0) {
+      input.classList.add("is-invalid");
+      return;
+    }
+
+    input.classList.remove("is-invalid");
+
+    member.monthlyFee = newFee;
+
   });
   group.append(input, button);
   return group;
 }
 
 function createCard(member: Member): HTMLDivElement {
+  const span = document.createElement("span");
+  span.className= "badge text-bg-secondary"
+  span.textContent = PLAN_LABELS[member.plan];
   const column = document.createElement("div");
   column.className = "col";
   const card = document.createElement("div");
@@ -91,13 +110,12 @@ function createCard(member: Member): HTMLDivElement {
   title.textContent = member.name;
   const lines = [
     `Documento: ${member.documentId}`,
-    `Plan: ${PLAN_LABELS[member.plan]}`,
     `Cuota mensual: $${member.monthlyFee}`,
   ];
   if (member.discount > 0) {
     lines.push(`Descuento: ${member.discount}%`);
   }
-  body.append(title, ...lines.map(createText));
+  body.append(span,title, ...lines.map(createText));
   const footer = document.createElement("div");
   footer.className = "card-footer bg-transparent";
   footer.append(createFeeEditor(member));
@@ -116,9 +134,10 @@ function updateList(): void {
 }
 
 function updateTotals(): void {
-  if (inpTotalMembers && inpTotalFees) {
+  if (inpTotalMembers && inpTotalFees && inpTotalDiscount) {
     inpTotalMembers.value = String(memberList.getItems().length);
     inpTotalFees.value = String(memberList.totalFees());
+    inpTotalDiscount.value = String(memberList.totalDiscounted());
   }
 }
 
@@ -134,7 +153,7 @@ loadMockData();
 updateList();
 updateTotals();
 
-if (btnAdd && inpName && inpDocument && selPlan && inpFee) {
+if (btnAdd && inpName && inpDocument && selPlan && inpFee && inpDiscount) {
   btnAdd.addEventListener("click", () => {
     try {
       const member = new Member({
@@ -142,6 +161,7 @@ if (btnAdd && inpName && inpDocument && selPlan && inpFee) {
         documentId: inpDocument.value,
         plan: selPlan.value as Plan,
         monthlyFee: Number(inpFee.value),
+        discount: Number(inpDiscount.value)
       });
       memberList.add(member);
       hideError();

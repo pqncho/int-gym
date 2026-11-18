@@ -68,6 +68,20 @@
           role="tabpanel"
         >
           <div class="stats">
+
+               <div class="stat">
+                <label class="form-label" for="inp-total-descuento"
+                >Total con descuento</label
+              >
+              <input
+                class="form-control-plaintext"
+                id="inp-total-descuento"
+                type="number"
+                value="0"
+                readonly
+              />
+               </div>
+
             <div class="stat">
               <label class="form-label" for="inp-total-members"
                 >Cantidad de socios</label
@@ -104,6 +118,13 @@
 
         <section class="tab-pane fade" id="new-container" role="tabpanel">
           <div class="row g-3">
+              <div class="col-md-6">
+
+                <label class="form-label" for="inp-descuento">Descuento</label>
+                <input class="form-control" id="inp-descuento" type="number" min="0" max="100" />
+
+              </div>
+
             <div class="col-md-6">
               <label class="form-label" for="inp-name">Nombre</label>
               <input class="form-control" id="inp-name" type="text" />
