@@ -1,4 +1,4 @@
-import type { Member } from "./Member.ts";
+import { Member } from "./Member.ts";
 
 export class MemberList {
   #items: Member[] = [];
@@ -14,8 +14,32 @@ export class MemberList {
   }
 
   updateFee(_documentId: string, _fee: number): void {
-    // TODO: cambiar la cuota del socio con ese documento
+    let encontro = false;
+    this.#items.forEach((member) => {
+    if(member.documentId === _documentId){
+    member.monthlyFee = _fee;
+    encontro = true;
+    }  
+    });
+    
+    if(!encontro) throw new Error ("el elemento no existe")
+
+    return
+      
   }
+
+  
+
+      /*updateFee(_documentId: string, _fee: number): void {
+          const exists = this.#items.find(
+      (member) => member.documentId === _documentId,
+    );
+    if (exists) {
+      exists.monthlyFee = _fee;
+    }
+ 
+      }
+*/
 
   getItems(): readonly Member[] {
     return [...this.#items];
@@ -26,7 +50,7 @@ export class MemberList {
   }
 
   totalDiscounted(): number {
-    // TODO: sumar las cuotas de los socios con el descuento aplicado
-    return 0;
+    return this.#items.reduce((total, member) => total + member.monthlyFee - (member.monthlyFee * member.discount/100), 0);
+    
   }
 }
