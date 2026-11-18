@@ -49,6 +49,6 @@ describe("MemberList", () => {
   test("update fee", () => {
     list.add(member);
     list.updateFee("12345678", 45);
-    expect(member.monthlyFee == 45).toBe(true);
+    expect(member.monthlyFee === 45).toBe(true);
   });
 });

@@ -87,7 +87,7 @@ export class Member {
   }
 
   toString(): string {
-    if (this.discount == 0) {
+    if (this.discount ===0) {
       return `${this.name} (doc. ${this.documentId}) - Plan ${PLAN_LABELS[this.plan]} - $${this.monthlyFee}`;
     } else {
       return `${this.name} (doc. ${this.documentId}) - Plan ${PLAN_LABELS[this.plan]} - $${this.monthlyFee} - Discount: ${this.discount}%`;
