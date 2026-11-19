@@ -173,3 +173,56 @@ if (btnAdd && inpName && inpDocument && selPlan && inpFee && inpDiscount) {
     }
   });
 }
+
+
+
+/*
+ * MÉTODOS DE ARRAYS - RESUMEN
+ *
+ * Todos reciben una función (callback) que se ejecuta para cada elemento.
+ * Ejemplo base: const cities: City[] = [...]
+ *
+ * forEach((item, index) => ...)
+ *   Recorre el array y ejecuta algo con cada elemento. NO devuelve nada.
+ *   Se usa para efectos: mostrar en pantalla, imprimir, etc.
+ *   cities.forEach((city) => console.log(city.cityName));
+ *
+ * find((item) => condición)
+ *   Devuelve el PRIMER elemento que cumple la condición, o undefined si no hay.
+ *   const roma = cities.find((city) => city.cityName === "Roma");
+ *
+ * some((item) => condición)
+ *   Devuelve true si AL MENOS UN elemento cumple la condición, sino false.
+ *   const hayItalia = cities.some((city) => city.country === "Italia");
+ *
+ * every((item) => condición)
+ *   Devuelve true si TODOS cumplen la condición.
+ *   const todasConNotas = cities.every((city) => city.notes !== "");
+ *
+ * filter((item) => condición)
+ *   Devuelve un NUEVO array solo con los elementos que cumplen la condición.
+ *   (si ninguno cumple, devuelve [])
+ *   const deItalia = cities.filter((city) => city.country === "Italia");
+ *
+ * map((item) => valor)
+ *   Devuelve un NUEVO array transformando cada elemento (mismo largo).
+ *   const nombres = cities.map((city) => city.cityName); // ["Roma", "París"]
+ *
+ * reduce((acumulador, item) => nuevoAcumulador, valorInicial)
+ *   Junta todos los elementos en UN solo valor (suma, total, etc).
+ *   const total = cities.reduce((sum, city) => sum + city.accommodation.cost, 0);
+ *
+ * findIndex((item) => condición)
+ *   Como find, pero devuelve la POSICIÓN (o -1 si no hay).
+ *   const i = cities.findIndex((city) => city.cityName === "Roma");
+ *
+ * Cuál usar:
+ *   ¿Quiero uno solo?            -> find
+ *   ¿Quiero saber si existe?     -> some
+ *   ¿Quiero varios?              -> filter
+ *   ¿Quiero transformar?         -> map
+ *   ¿Quiero un total?            -> reduce
+ *   ¿Solo hacer algo con cada uno? -> forEach
+ *
+ * Ojo: filter, map y find NO modifican el array original.
+ */

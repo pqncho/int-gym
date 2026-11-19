@@ -6,13 +6,13 @@ export const PLAN_LABELS: Record<Plan, string> = {
   premium: "Premium",
 };
 
-export type MemberData = {
-  name: string;
-  documentId: string;
-  plan: Plan;
-  monthlyFee: number;
-  discount: number;
-};
+  export type MemberData = {
+    name: string;
+    documentId: string;
+    plan: Plan;
+    monthlyFee: number;
+    discount: number;
+  };
 
 export class Member {
   private _name: string = "";
